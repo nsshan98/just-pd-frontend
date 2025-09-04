@@ -1,6 +1,8 @@
+"use client"
 import { Button } from "@/components/atoms/button"
 import { Separator } from "@/components/atoms/separator"
 import AddEmployeeDialog from "./add-employee"
+import { doUserLogOut } from "@/action/auth"
 
 export function SiteHeader() {
   return (
@@ -13,6 +15,7 @@ export function SiteHeader() {
         <h1 className="text-base font-bold">JUST Phone Directory</h1>
         <div className="ml-auto flex items-center gap-2">
           <AddEmployeeDialog/>
+          <Button onClick={() => doUserLogOut()} variant={'destructive'}>Logout</Button>
         </div>
       </div>
     </header>

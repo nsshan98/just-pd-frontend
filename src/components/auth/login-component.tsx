@@ -52,6 +52,9 @@ const LoginComponent = () => {
   };
   return (
     <div className="max-w-md h-dvh mx-auto my-auto flex flex-col justify-center">
+      <div>
+        <h1 className="text-3xl font-bold text-center mb-6">JUST Phone Directory Login</h1>
+      </div>
       <Form {...loginForm}>
         <form onSubmit={loginForm.handleSubmit(onSubmit)} className="space-y-8">
           <FormField

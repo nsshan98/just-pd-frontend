@@ -2,7 +2,6 @@
 import { Button } from "@/components/atoms/button";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
