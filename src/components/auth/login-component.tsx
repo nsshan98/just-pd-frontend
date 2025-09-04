@@ -59,10 +59,10 @@ const LoginComponent = () => {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-amber-50">Email</FormLabel>
+                <FormLabel>Email</FormLabel>
                 <FormControl>
                   <Input
-                    className="bg-amber-50"
+                    className="bg-amber-50 border-amber-950"
                     placeholder="email@example.com"
                     type="email"
                     {...field}
@@ -77,10 +77,10 @@ const LoginComponent = () => {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-amber-50">Password</FormLabel>
+                <FormLabel>Password</FormLabel>
                 <FormControl>
                   <Input
-                    className="bg-amber-50"
+                    className="bg-amber-50 border-amber-950"
                     placeholder="********"
                     type={showPassword ? "text" : "password"}
                     endIcon={
