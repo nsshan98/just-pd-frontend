@@ -227,7 +227,7 @@ export default function AddEmployeeDialog() {
                     </FormItem>
                   )}
                 />
-               <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2">
                   <div className="flex-grow">
                     <FormField
                       control={employeeCreateForm.control}
@@ -240,7 +240,7 @@ export default function AddEmployeeDialog() {
                             defaultValue={field.value}
                           >
                             <FormControl>
-                              <SelectTrigger className="w-full">
+                              <SelectTrigger className="w-full border-black">
                                 <SelectValue placeholder="Select a department" />
                               </SelectTrigger>
                             </FormControl>
@@ -271,7 +271,11 @@ export default function AddEmployeeDialog() {
                             inputMode="numeric"
                             pattern="[0-9]*"
                             min={0}
-                            {...field}
+                            onChange={(e) =>
+                              field.onChange(Number(e.target.value))
+                            } // manually handle number conversion
+                            value={field.value ?? ""} // handle undefined
+                            // {...field}
                           />
                         </FormControl>
                         <FormMessage />
