@@ -3,7 +3,7 @@ import { signIn, signOut } from "@/auth";
 
 // Sign Out
 export async function doUserLogOut() {
-    console.log("Log out ----->");
+    // console.log("Log out ----->");
     await signOut({ redirectTo: "/auth/login" });
 }
 

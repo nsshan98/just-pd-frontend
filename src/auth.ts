@@ -156,7 +156,7 @@ export const {
       }
 
       // Access token has expired, try to update it
-      console.log("**** Update Refresh token ******");
+      // console.log("**** Update Refresh token ******");
       return refreshAccessToken(token);
     },
     session: async ({ session, token }) => {

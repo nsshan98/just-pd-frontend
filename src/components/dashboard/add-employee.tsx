@@ -25,6 +25,15 @@ import {
   FormLabel,
   FormMessage,
 } from "../atoms/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../atoms/select";
+import { employeeDepartments } from "@/lib/utils";
+import { Checkbox } from "../atoms/checkbox";
 
 export default function AddEmployeeDialog() {
   const { employeeCreateMutation } = useCreateEmployee();
@@ -64,16 +73,16 @@ export default function AddEmployeeDialog() {
   const onSubmit = (data: EmployeeSchemaType) => {
     const formData = getFormData(data);
 
-    employeeCreateMutation.mutate(formData, {
-      onSuccess: () => {
-        toast("Employee Created Successfully");
-      },
-      onError: (error: Error) => {
-        if (isAxiosError(error)) {
-          console.log(error);
-        }
-      },
-    });
+    // employeeCreateMutation.mutate(formData, {
+    //   onSuccess: () => {
+    //     toast("Employee Created Successfully");
+    //   },
+    //   onError: (error: Error) => {
+    //     if (isAxiosError(error)) {
+    //       console.log(error);
+    //     }
+    //   },
+    // });
     console.log(data);
   };
 
@@ -124,44 +133,83 @@ export default function AddEmployeeDialog() {
                     </FormItem>
                   )}
                 />
-                <FormField
-                  control={employeeCreateForm.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Email</FormLabel>
-                      <FormControl>
-                        <Input
-                          className="bg-amber-50 border-amber-950"
-                          placeholder="example@email.com"
-                          type="email"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={employeeCreateForm.control}
-                  name="phone"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Phone</FormLabel>
-                      <FormControl>
-                        <Input
-                          className="bg-amber-50 border-amber-950"
-                          placeholder="+88 01234 567890"
-                          type="text"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <div className="flex flex-row gap-2">
+                <div className="flex items-center gap-2">
+                  <div className="flex-grow">
+                    <FormField
+                      control={employeeCreateForm.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Email</FormLabel>
+                          <FormControl>
+                            <Input
+                              className="bg-amber-50 border-amber-950"
+                              placeholder="example@email.com"
+                              type="email"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
                   <FormField
+                    control={employeeCreateForm.control}
+                    name="show_email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Show</FormLabel>
+                        <FormControl>
+                          <Checkbox
+                            checked={field.value} // ✅ bind to form state
+                            onCheckedChange={field.onChange} // ✅ update form state
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="flex-grow">
+                    <FormField
+                      control={employeeCreateForm.control}
+                      name="phone"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Phone</FormLabel>
+                          <FormControl>
+                            <Input
+                              className="bg-amber-50 border-amber-950"
+                              placeholder="+88 01234 567890"
+                              type="text"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <FormField
+                    control={employeeCreateForm.control}
+                    name="show_phone"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Show</FormLabel>
+                        <FormControl>
+                          <Checkbox
+                            checked={field.value} // ✅ bind to form state
+                            onCheckedChange={field.onChange} // ✅ update form state
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                <FormField
                   control={employeeCreateForm.control}
                   name="designation"
                   render={({ field }) => (
@@ -179,24 +227,57 @@ export default function AddEmployeeDialog() {
                     </FormItem>
                   )}
                 />
-                <FormField
-                  control={employeeCreateForm.control}
-                  name="department"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Department</FormLabel>
-                      <FormControl>
-                        <Input
-                          className="bg-amber-50 border-amber-950"
-                          placeholder="+88 01234 567890"
-                          type="text"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+               <div className="flex items-center gap-2">
+                  <div className="flex-grow">
+                    <FormField
+                      control={employeeCreateForm.control}
+                      name="department"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Department</FormLabel>
+                          <Select
+                            onValueChange={field.onChange}
+                            defaultValue={field.value}
+                          >
+                            <FormControl>
+                              <SelectTrigger className="w-full">
+                                <SelectValue placeholder="Select a department" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              {employeeDepartments.map((dept) => (
+                                <SelectItem key={dept.value} value={dept.value}>
+                                  {dept.name}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <FormField
+                    control={employeeCreateForm.control}
+                    name="sorting_order"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Sort</FormLabel>
+                        <FormControl>
+                          <Input
+                            className="bg-amber-50 border-amber-950"
+                            placeholder="1"
+                            type="number"
+                            inputMode="numeric"
+                            pattern="[0-9]*"
+                            min={0}
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
                 </div>
                 <DialogFooter>
                   <Button type="submit">Submit</Button>
