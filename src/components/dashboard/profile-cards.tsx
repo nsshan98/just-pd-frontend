@@ -2,7 +2,15 @@
 import { Card, CardContent } from "@/components/atoms/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/atoms/avatar";
 import { Skeleton } from "@/components/atoms/skeleton";
-import { Phone, Mail } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/atoms/dropdown-menu";
+import { Button } from "@/components/atoms/button";
+import { Phone, Mail, EllipsisVertical, SquarePen, Trash } from "lucide-react";
 import { useShowEmployee } from "@/hooks/reactQuery/employeeQuery";
 import Link from "next/link";
 
@@ -48,7 +56,7 @@ export function ProfileCard() {
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 px-3">
       {employeeShowQuery.data?.data.map((employee: Employee, index: number) => (
-        <Card key={index} className="w-full bg-white shadow-sm">
+        <Card key={index} className="w-full bg-white shadow-sm relative">
           <CardContent className="p-2 text-center">
             <div className="flex flex-col items-center space-y-4">
               {/* Profile Avatar */}
@@ -68,26 +76,58 @@ export function ProfileCard() {
                 <h2 className="text-xl font-semibold text-gray-900">
                   {employee.name}
                 </h2>
-                <p className="text-gray-600">{employee.designation} ({employee.department})</p>
+                <p className="text-gray-600">
+                  {employee.designation} ({employee.department})
+                </p>
               </div>
 
               {/* Contact Information */}
               <div className="space-y-3 ">
                 <div className="flex items-center justify-center space-x-3 text-gray-600">
-                  <Link href={`tel:${employee.phone}`} className="flex items-center space-x-2">
+                  <Link
+                    href={`tel:${employee.phone}`}
+                    className="flex items-center space-x-2"
+                  >
                     <Phone className="w-4 h-4" />
-                    <span className="text-sm">{employee.phone ?? "Not Provided"}</span>
+                    <span className="text-sm">
+                      {employee.phone ?? "Not Provided"}
+                    </span>
                   </Link>
                 </div>
                 <div className="flex items-center justify-center space-x-3 text-gray-600">
-                  <Link href={`mailto:${employee.email}`} className="flex items-center space-x-2">
+                  <Link
+                    href={`mailto:${employee.email}`}
+                    className="flex items-center space-x-2"
+                  >
                     <Mail className="w-4 h-4" />
-                    <span className="text-sm">{employee.email ?? "Not Provided"}</span>
+                    <span className="text-sm">
+                      {employee.email ?? "Not Provided"}
+                    </span>
                   </Link>
                 </div>
               </div>
             </div>
           </CardContent>
+
+          <div className="absolute top-2 right-2">
+            <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button size={'icon'} variant="ghost"><EllipsisVertical className="w-4 h-4" /></Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start">
+              <DropdownMenuGroup>
+                <DropdownMenuItem>
+                  <SquarePen className="w-4 h-4" />
+                  Edit
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Trash className="w-4 h-4 text-red-500" />
+                  Delete
+                </DropdownMenuItem>
+                </DropdownMenuGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
+          </div>
         </Card>
       ))}
     </div>
