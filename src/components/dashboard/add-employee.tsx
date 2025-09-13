@@ -36,7 +36,7 @@ import { employeeDepartments } from "@/lib/utils";
 import { Checkbox } from "../atoms/checkbox";
 import Image from "next/image";
 import { useRef, useState } from "react";
-import { CloudUpload, Delete } from "lucide-react";
+import { CloudUpload, X } from "lucide-react";
 
 export default function AddEmployeeDialog() {
   const [previewImage, setPreviewImage] = useState<string | null>();
@@ -159,14 +159,15 @@ export default function AddEmployeeDialog() {
                   }}
                 >
                   {previewImage ? (
-                    <>
+                    <div>
                       <Image
                         src={previewImage}
                         alt="Preview"
-                        layout="fill"
-                        objectFit="cover"
+                        style={{ objectFit: "cover" }}
+                        fill                        
                       />
                       <Button
+                        variant="ghost"
                         size="icon"
                         onClick={(e) => {
                           e.stopPropagation(); // prevent triggering file dialog
@@ -180,12 +181,17 @@ export default function AddEmployeeDialog() {
                           position: "absolute",
                           top: 0,
                           right: 0,
-                          backgroundColor: "white",
+                          backgroundColor: "#000",
+                          color: "#fff",
+                          width: 24,
+                          height: 24,
+                          borderRadius: "50%",
+                          padding: 0,
                         }}
                       >
-                        <Delete fontSize="small" />
+                        <X fontSize="small" />
                       </Button>
-                    </>
+                    </div>
                   ) : (
                     <div
                       style={{
@@ -203,7 +209,7 @@ export default function AddEmployeeDialog() {
                           textAlign: "center",
                         }}
                       >
-                        Upload Product Image
+                        Upload Employee Image
                       </div>
                     </div>
                   )}

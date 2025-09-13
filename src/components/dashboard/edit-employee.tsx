@@ -11,8 +11,12 @@ import {
 } from "@/components/atoms/dialog";
 import { Input } from "@/components/atoms/input";
 import { Label } from "@/components/atoms/label";
-import { useCreateEmployee } from "@/hooks/reactQuery/employeeQuery";
-import { employeeSchema, EmployeeSchemaType } from "@/zod/employee-schema";
+import { useUpdateEmployee } from "@/hooks/reactQuery/employeeQuery";
+import {
+  Employee,
+  employeeSchema,
+  EmployeeSchemaType,
+} from "@/zod/employee-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { isAxiosError } from "axios";
 import { useForm } from "react-hook-form";
@@ -36,69 +40,121 @@ import { employeeDepartments } from "@/lib/utils";
 import { Checkbox } from "../atoms/checkbox";
 import Image from "next/image";
 import { useRef, useState } from "react";
-import { CloudUpload, Delete } from "lucide-react";
+import { CloudUpload, X } from "lucide-react";
 
-export default function AddEmployeeDialog() {
+type EditEmployeeProps = {
+  open: boolean;
+  onClose: () => void;
+  employee: Employee;
+};
+
+export default function EditEmployeeDialog({
+  open,
+  onClose,
+  employee,
+}: EditEmployeeProps) {
   const [previewImage, setPreviewImage] = useState<string | null>();
   const fileRef = useRef<HTMLInputElement | null>(null);
 
-  const { employeeCreateMutation } = useCreateEmployee();
+  const { employeeUpdateMutation } = useUpdateEmployee(employee.id);
+
   const employeeCreateForm = useForm<EmployeeSchemaType>({
-    defaultValues: {
-      image: "",
-      name: "",
-      email: "",
-      show_email: true,
-      phone: "",
-      show_phone: true,
-      designation: "",
-      department: "",
-      sorting_order: 0,
-      is_published: true,
+    values: {
+      image: employee.image?.image_url,
+      name: employee.name,
+      email: employee.email,
+      show_email: employee.show_email,
+      phone: employee.phone,
+      show_phone: employee.show_phone,
+      designation: employee.designation,
+      department: employee.department,
+      sorting_order: employee.sorting_order ?? 0,
+      is_published: employee.is_published,
     },
     resolver: zodResolver(employeeSchema),
   });
 
-  const getFormData = (data: EmployeeSchemaType) => {
+  const isFieldChange = (
+    data: EmployeeSchemaType,
+    employee: Omit<Employee, "employee.id">
+  ) => {
+    if (data.image instanceof File) return true;
+    if (data.name !== employee.name) return true;
+    if (data.email !== employee.email) return true;
+    if (data.show_email !== employee.show_email) return true;
+    if (data.phone !== employee.phone) return true;
+    if (data.show_phone !== employee.show_phone) return true;
+    if (data.designation !== employee.designation) return true;
+    if (data.department !== employee.department) return true;
+    if (data.sorting_order !== employee.sorting_order) return true;
+    if (data.is_published !== employee.is_published) return true;
+    return false;
+  };
+
+  const getFormData = (data: EmployeeSchemaType, employee: Employee) => {
     const formData = new FormData();
-    if (data.image) {
+
+    if (data.image instanceof File) {
       formData.append("image", data.image);
     }
-    formData.append("name", data.name);
-    formData.append("email", data.email);
-    formData.append("show_email", (data.show_email ?? true).toString());
-    formData.append("phone", data.phone);
-    formData.append("show_phone", (data.show_phone ?? true).toString());
-    formData.append("designation", data.designation);
-    formData.append("department", data.department);
-    formData.append("sorting_order", (data.sorting_order ?? 0).toString());
-    formData.append("is_published", (data.is_published ?? true).toString());
+
+    if (data.name !== employee.name) {
+      formData.append("name", data.name);
+    }
+    if (data.email !== employee.email) {
+      formData.append("email", data.email);
+    }
+    if (data.show_email !== employee.show_email) {
+      formData.append("show_email", (data.show_email ?? true).toString());
+    }
+    if (data.phone !== employee.phone) {
+      formData.append("phone", data.phone);
+    }
+    if (data.show_phone !== employee.show_phone) {
+      formData.append("show_phone", (data.show_phone ?? true).toString());
+    }
+    if (data.designation !== employee.designation) {
+      formData.append("designation", data.designation);
+    }
+    if (data.department !== employee.department) {
+      formData.append("department", data.department);
+    }
+    if (data.sorting_order !== employee.sorting_order) {
+      formData.append("sorting_order", (data.sorting_order ?? 0).toString());
+    }
+    if (data.is_published !== employee.is_published) {
+      formData.append("is_published", (data.is_published ?? true).toString());
+    }
     return formData;
   };
 
-  const onSubmit = (data: EmployeeSchemaType) => {
-    const formData = getFormData(data);
+  const onSubmit = async (data: EmployeeSchemaType) => {
+    const formData = getFormData(data, employee);
+    if (!isFieldChange(data, employee)) {
+      toast.info("No change detected");
+      return;
+    }
 
-    // employeeCreateMutation.mutate(formData, {
-    //   onSuccess: () => {
-    //     toast("Employee Created Successfully");
-    //   },
-    //   onError: (error: Error) => {
-    //     if (isAxiosError(error)) {
-    //       console.log(error);
-    //     }
-    //   },
-    // });
+    employeeUpdateMutation.mutate(formData, {
+      onSuccess: () => {
+        toast("Employee Updated Successfully");
+      },
+      onError: (error: Error) => {
+        if (isAxiosError(error)) {
+          console.log(error);
+        }
+      },
+    });
     console.log(data);
   };
 
   console.log(employeeCreateForm.formState.errors);
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
+    <Dialog open={open} onOpenChange={onClose}>
+      {/* <DialogTrigger asChild>
         <Button variant="outline">Add Employee</Button>
-      </DialogTrigger>
+      </DialogTrigger> */}
       <DialogContent
         className="sm:max-w-[425px] overflow-y-auto max-h-[90vh]"
         onInteractOutside={(e) => {
@@ -109,9 +165,9 @@ export default function AddEmployeeDialog() {
         }}
       >
         <DialogHeader>
-          <DialogTitle>Add Employee Form</DialogTitle>
+          <DialogTitle>Update Employee Form</DialogTitle>
           <DialogDescription>
-            Fill the form below to add a new employee to the directory.
+            Fill the form below to update the employee details.
           </DialogDescription>
         </DialogHeader>
 
@@ -123,98 +179,116 @@ export default function AddEmployeeDialog() {
             <FormField
               control={employeeCreateForm.control}
               name="image"
-              render={({ field: {onChange} }) => (
+              render={({ field: { onChange } }) => (
                 <FormItem>
                   <FormLabel>Image</FormLabel>
                   <FormControl>
-                   <>
-                <input
-                  type="file"
-                  hidden
-                  accept="image/jpg, image/jpeg, image/png, image/heic"
-                  ref={fileRef}
-                  onChange={(e) => {
-                    const file = e.target.files?.[0];
-                    if (file) {
-                      setPreviewImage(URL.createObjectURL(file));
-                      onChange(file);
-                    }
-                  }}
-                />
-
-                <div
-                  onClick={() => fileRef.current?.click()}
-                  style={{
-                    width: 130,
-                    height: 130,
-                    border: "2px dashed #ccc",
-                    borderRadius: 2,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    cursor: "pointer",
-                    position: "relative",
-                    overflow: "hidden",
-                    marginTop: 1,
-                  }}
-                >
-                  {previewImage ? (
-                    <>
-                      <Image
-                        src={previewImage}
-                        alt="Preview"
-                        layout="fill"
-                        objectFit="cover"
-                      />
-                      <Button
-                        size="icon"
-                        onClick={(e) => {
-                          e.stopPropagation(); // prevent triggering file dialog
-                          setPreviewImage(null);
-                          onChange(undefined);
-                          if (fileRef.current) {
-                            fileRef.current.value = "";
+                    <div>
+                      <input
+                        type="file"
+                        hidden
+                        accept="image/jpg, image/jpeg, image/png, image/heic"
+                        ref={fileRef}
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (file) {
+                            setPreviewImage(URL.createObjectURL(file));
+                            onChange(file);
                           }
                         }}
-                        style={{
-                          position: "absolute",
-                          top: 0,
-                          right: 0,
-                          backgroundColor: "white",
-                        }}
-                      >
-                        <Delete fontSize="small" />
-                      </Button>
-                    </>
-                  ) : (
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        gap: 1,
-                      }}
-                    >
-                      <CloudUpload style={{ fontSize: 30, color: "#aaa" }} />
+                      />
+
                       <div
+                        onClick={() => fileRef.current?.click()}
                         style={{
-                          fontSize: 16,
-                          color: "#aaa",
-                          textAlign: "center",
+                          width: 130,
+                          height: 130,
+                          border: "2px dashed #ccc",
+                          borderRadius: 2,
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          cursor: "pointer",
+                          position: "relative",
+                          overflow: "hidden",
+                          marginTop: 1,
                         }}
                       >
-                        Upload Product Image
+                        {previewImage ? (
+                          <div>
+                            <Image
+                              src={previewImage}
+                              alt="Preview"
+                              layout="fill"
+                              objectFit="cover"
+                            />
+                            <Button
+                              variant={"ghost"}
+                              size="icon"
+                              onClick={(e) => {
+                                e.stopPropagation(); // prevent triggering file dialog
+                                setPreviewImage(null);
+                                onChange(undefined);
+                                if (fileRef.current) {
+                                  fileRef.current.value = "";
+                                }
+                              }}
+                              style={{
+                                position: "absolute",
+                                top: 0,
+                                right: 0,
+                                backgroundColor: "#000",
+                                color: "#fff",
+                                width: 24,
+                                height: 24,
+                                borderRadius: "50%",
+                                padding: 0,
+                              }}
+                            >
+                              <X fontSize="small" />
+                            </Button>
+                          </div>
+                        ) : (
+                          <div>
+                            <Image
+                              src={
+                                employee?.image?.image_url ??
+                                "/product-placeholder.png"
+                              }
+                              alt="Upload"
+                              width={130}
+                              height={130}
+                              priority
+                              style={{ objectFit: "contain" }}
+                            />
+                            <Button
+                              type="button"
+                              variant={"ghost"}
+                              size="icon"
+                              style={{
+                                position: "absolute",
+                                top: 0,
+                                right: 0,
+                                backgroundColor: "#000",
+                                color: "#fff",
+                                width: 24,
+                                height: 24,
+                                borderRadius: "50%",
+                                padding: 0,
+                              }}
+                            >
+                              <X fontSize="small" />
+                            </Button>
+                          </div>
+                        )}
                       </div>
-                    </div>
-                  )}
-                </div>
-{/* 
+                      {/* 
                 {error && (
                   <Typography color="error" variant="caption" mt={1}>
                     {error.message}
                   </Typography>
                 )} */}
-              </>
+                    </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>

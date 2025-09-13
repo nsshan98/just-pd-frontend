@@ -13,21 +13,45 @@ import { Button } from "@/components/atoms/button";
 import { Phone, Mail, EllipsisVertical, SquarePen, Trash } from "lucide-react";
 import { useShowEmployee } from "@/hooks/reactQuery/employeeQuery";
 import Link from "next/link";
-
-interface Employee {
-  name: string;
-  email: string;
-  phone: string;
-  department: string;
-  designation: string;
-  image: {
-    image_public_id: string;
-    image_url: string;
-  };
-}
+import { useState } from "react";
+import { Employee } from "@/zod/employee-schema";
+import EditEmployeeDialog from "./edit-employee";
+import DeleteEmployeeDialog from "./delete-employee";
 
 export function ProfileCard() {
+  const [selectedEmployee, setSelectedEmployee] = useState<{
+    employee_id: string;
+    openState: "edit" | "delete" | null;
+  }>({ employee_id: "", openState: null });
+  const [openModal, setOpenModal] = useState(false);
+
   const { employeeShowQuery } = useShowEmployee();
+
+  const employee = employeeShowQuery.data?.data.find(
+    (emp: Employee) => emp.id === selectedEmployee.employee_id
+  );
+
+console.log(employee)
+  const handleOpenEmployeeEditModal = (employee: Employee) => {
+    setSelectedEmployee({
+      employee_id: employee.id,
+      openState: "edit",
+    });
+    setOpenModal(true);
+  };
+
+  const handleOpenEmployeeDeleteModal = (employee: Employee) => {
+    setSelectedEmployee({
+      employee_id: employee.id,
+      openState: "delete",
+    });
+    setOpenModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+    setSelectedEmployee({ employee_id: "", openState: null });
+  };
 
   if (employeeShowQuery.isLoading) {
     return (
@@ -53,6 +77,8 @@ export function ProfileCard() {
     );
   }
 
+
+
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 px-3">
       {employeeShowQuery.data?.data.map((employee: Employee, index: number) => (
@@ -62,7 +88,7 @@ export function ProfileCard() {
               {/* Profile Avatar */}
               <Avatar className="w-40 h-40">
                 <AvatarImage
-                  src={employee.image.image_url}
+                  src={employee.image?.image_url}
                   alt={employee.name}
                   className="object-cover"
                 />
@@ -111,25 +137,50 @@ export function ProfileCard() {
 
           <div className="absolute top-2 right-2">
             <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button size={'icon'} variant="ghost"><EllipsisVertical className="w-4 h-4" /></Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="start">
-              <DropdownMenuGroup>
-                <DropdownMenuItem>
-                  <SquarePen className="w-4 h-4" />
-                  Edit
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Trash className="w-4 h-4 text-red-500" />
-                  Delete
-                </DropdownMenuItem>
+              <DropdownMenuTrigger asChild>
+                <Button size={"icon"} variant="ghost">
+                  <EllipsisVertical className="w-4 h-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start">
+                <DropdownMenuGroup>
+                  <DropdownMenuItem onClick={() => {
+                    handleOpenEmployeeEditModal(employee)
+                    setOpenModal(true)
+                  }}>
+                    <SquarePen className="w-4 h-4" />
+                    Edit
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => {
+                    handleOpenEmployeeDeleteModal(employee)
+                    setOpenModal(true)
+                  }}>
+                    <Trash className="w-4 h-4 text-red-500" />
+                    Delete
+                  </DropdownMenuItem>
                 </DropdownMenuGroup>
-            </DropdownMenuContent>
-          </DropdownMenu>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </Card>
       ))}
+
+      {selectedEmployee && selectedEmployee?.openState === "edit" && (
+        <EditEmployeeDialog
+          employee={employee as Employee}
+          open={openModal}
+          onClose={handleCloseModal}
+        />
+      )}
+
+      {selectedEmployee && selectedEmployee?.openState === "delete" && (
+        <DeleteEmployeeDialog
+          employeeId={employee.id as string}
+          open={openModal}
+          onClose={handleCloseModal}
+        />
+      )}
+
     </div>
   );
 }
