@@ -7,10 +7,8 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/atoms/dialog";
 import { Input } from "@/components/atoms/input";
-import { Label } from "@/components/atoms/label";
 import { useUpdateEmployee } from "@/hooks/reactQuery/employeeQuery";
 import {
   Employee,
@@ -40,7 +38,7 @@ import { employeeDepartments } from "@/lib/utils";
 import { Checkbox } from "../atoms/checkbox";
 import Image from "next/image";
 import { useRef, useState } from "react";
-import { CloudUpload, X } from "lucide-react";
+import { X } from "lucide-react";
 
 type EditEmployeeProps = {
   open: boolean;

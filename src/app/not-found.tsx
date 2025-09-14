@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { Button } from "@/components/atoms/button";
-import { Card, CardContent } from "@/components/atoms/card";
 import { Home, Mail, Search } from "lucide-react";
 
 export default function NotFound() {

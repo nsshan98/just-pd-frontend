@@ -5,10 +5,6 @@ import { Skeleton } from "@/components/atoms/skeleton";
 import Link from "next/link";
 import { useShowDepartment } from "@/hooks/reactQuery/departmentQuery";
 
-interface Department {
-  name: string;
-}
-
 export function AllDepartments() {
   const { departmentShowQuery } = useShowDepartment();
 

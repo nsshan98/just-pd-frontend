@@ -10,7 +10,6 @@ import {
   DialogTrigger,
 } from "@/components/atoms/dialog";
 import { Input } from "@/components/atoms/input";
-import { Label } from "@/components/atoms/label";
 import { useCreateEmployee } from "@/hooks/reactQuery/employeeQuery";
 import { employeeSchema, EmployeeSchemaType } from "@/zod/employee-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -79,16 +78,16 @@ export default function AddEmployeeDialog() {
   const onSubmit = (data: EmployeeSchemaType) => {
     const formData = getFormData(data);
 
-    // employeeCreateMutation.mutate(formData, {
-    //   onSuccess: () => {
-    //     toast("Employee Created Successfully");
-    //   },
-    //   onError: (error: Error) => {
-    //     if (isAxiosError(error)) {
-    //       console.log(error);
-    //     }
-    //   },
-    // });
+    employeeCreateMutation.mutate(formData, {
+      onSuccess: () => {
+        toast("Employee Created Successfully");
+      },
+      onError: (error: Error) => {
+        if (isAxiosError(error)) {
+          console.log(error);
+        }
+      },
+    });
     console.log(data);
   };
 

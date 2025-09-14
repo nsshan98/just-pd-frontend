@@ -31,7 +31,7 @@ export function ProfileCard() {
     (emp: Employee) => emp.id === selectedEmployee.employee_id
   );
 
-console.log(employee)
+  console.log(employee);
   const handleOpenEmployeeEditModal = (employee: Employee) => {
     setSelectedEmployee({
       employee_id: employee.id,
@@ -76,8 +76,6 @@ console.log(employee)
       </div>
     );
   }
-
-
 
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 px-3">
@@ -144,17 +142,21 @@ console.log(employee)
               </DropdownMenuTrigger>
               <DropdownMenuContent align="start">
                 <DropdownMenuGroup>
-                  <DropdownMenuItem onClick={() => {
-                    handleOpenEmployeeEditModal(employee)
-                    setOpenModal(true)
-                  }}>
+                  <DropdownMenuItem
+                    onClick={() => {
+                      handleOpenEmployeeEditModal(employee);
+                      setOpenModal(true);
+                    }}
+                  >
                     <SquarePen className="w-4 h-4" />
                     Edit
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => {
-                    handleOpenEmployeeDeleteModal(employee)
-                    setOpenModal(true)
-                  }}>
+                  <DropdownMenuItem
+                    onClick={() => {
+                      handleOpenEmployeeDeleteModal(employee);
+                      setOpenModal(true);
+                    }}
+                  >
                     <Trash className="w-4 h-4 text-red-500" />
                     Delete
                   </DropdownMenuItem>
@@ -180,7 +182,6 @@ console.log(employee)
           onClose={handleCloseModal}
         />
       )}
-
     </div>
   );
 }
