@@ -17,6 +17,20 @@ const useShowEmployee = () => {
   return { employeeShowQuery };
 };
 
+// ================================ Show Employee By Search ================================ //
+const useShowEmployeeBySearch = () => {
+  const employeeShowBySearchQuery = useQuery({
+    queryKey: ["employee-search"],
+    queryFn: async () => {
+      const { data } = await axiosClient.get("/employee/show-all-employees");
+      return data;
+    },
+    retry: false,
+    staleTime: 1000 * 60 * 10,
+  });
+  return { employeeShowBySearchQuery };
+};
+
 // ===============================|| Create New Employee ||============================== //
 const useCreateEmployee = () => {
   const queryClient = useQueryClient();
@@ -31,6 +45,8 @@ const useCreateEmployee = () => {
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ["employees"] });
+      queryClient.invalidateQueries({ queryKey: ["departments"] });
+      queryClient.invalidateQueries({ queryKey: ["department-wise-employees"] });
     },
   });
 
@@ -50,6 +66,8 @@ const useUpdateEmployee = (employeeId: string) => {
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ["employees"] });
+      queryClient.invalidateQueries({ queryKey: ["departments"] });
+      queryClient.invalidateQueries({ queryKey: ["department-wise-employees"] });
     },
   });
   return { employeeUpdateMutation };
@@ -64,6 +82,8 @@ const useDeleteEmployee = () => {
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ["employees"] });
+      queryClient.invalidateQueries({ queryKey: ["departments"] });
+      queryClient.invalidateQueries({ queryKey: ["department-wise-employees"] });
     },
   });
   return { employeeDeleteMutation };
@@ -72,6 +92,7 @@ const useDeleteEmployee = () => {
 
 export {
   useShowEmployee,
+  useShowEmployeeBySearch,
   useCreateEmployee,
   useUpdateEmployee,
   useDeleteEmployee,

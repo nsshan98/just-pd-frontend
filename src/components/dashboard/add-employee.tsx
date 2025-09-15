@@ -88,10 +88,7 @@ export default function AddEmployeeDialog() {
         }
       },
     });
-    console.log(data);
   };
-
-  console.log(employeeCreateForm.formState.errors);
 
   return (
     <Dialog>
@@ -122,104 +119,106 @@ export default function AddEmployeeDialog() {
             <FormField
               control={employeeCreateForm.control}
               name="image"
-              render={({ field: {onChange} }) => (
+              render={({ field: { onChange } }) => (
                 <FormItem>
                   <FormLabel>Image</FormLabel>
                   <FormControl>
-                   <>
-                <input
-                  type="file"
-                  hidden
-                  accept="image/jpg, image/jpeg, image/png, image/heic"
-                  ref={fileRef}
-                  onChange={(e) => {
-                    const file = e.target.files?.[0];
-                    if (file) {
-                      setPreviewImage(URL.createObjectURL(file));
-                      onChange(file);
-                    }
-                  }}
-                />
-
-                <div
-                  onClick={() => fileRef.current?.click()}
-                  style={{
-                    width: 130,
-                    height: 130,
-                    border: "2px dashed #ccc",
-                    borderRadius: 2,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    cursor: "pointer",
-                    position: "relative",
-                    overflow: "hidden",
-                    marginTop: 1,
-                  }}
-                >
-                  {previewImage ? (
-                    <div>
-                      <Image
-                        src={previewImage}
-                        alt="Preview"
-                        style={{ objectFit: "cover" }}
-                        fill                        
-                      />
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={(e) => {
-                          e.stopPropagation(); // prevent triggering file dialog
-                          setPreviewImage(null);
-                          onChange(undefined);
-                          if (fileRef.current) {
-                            fileRef.current.value = "";
+                    <>
+                      <input
+                        type="file"
+                        hidden
+                        accept="image/jpg, image/jpeg, image/png, image/heic"
+                        ref={fileRef}
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (file) {
+                            setPreviewImage(URL.createObjectURL(file));
+                            onChange(file);
                           }
                         }}
-                        style={{
-                          position: "absolute",
-                          top: 0,
-                          right: 0,
-                          backgroundColor: "#000",
-                          color: "#fff",
-                          width: 24,
-                          height: 24,
-                          borderRadius: "50%",
-                          padding: 0,
-                        }}
-                      >
-                        <X fontSize="small" />
-                      </Button>
-                    </div>
-                  ) : (
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        gap: 1,
-                      }}
-                    >
-                      <CloudUpload style={{ fontSize: 30, color: "#aaa" }} />
+                      />
+
                       <div
+                        onClick={() => fileRef.current?.click()}
                         style={{
-                          fontSize: 16,
-                          color: "#aaa",
-                          textAlign: "center",
+                          width: 130,
+                          height: 130,
+                          border: "2px dashed #ccc",
+                          borderRadius: 2,
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          cursor: "pointer",
+                          position: "relative",
+                          overflow: "hidden",
+                          marginTop: 1,
                         }}
                       >
-                        Upload Employee Image
+                        {previewImage ? (
+                          <div>
+                            <Image
+                              src={previewImage}
+                              alt="Preview"
+                              style={{ objectFit: "cover" }}
+                              fill
+                            />
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              onClick={(e) => {
+                                e.stopPropagation(); // prevent triggering file dialog
+                                setPreviewImage(null);
+                                onChange(undefined);
+                                if (fileRef.current) {
+                                  fileRef.current.value = "";
+                                }
+                              }}
+                              style={{
+                                position: "absolute",
+                                top: 0,
+                                right: 0,
+                                backgroundColor: "#000",
+                                color: "#fff",
+                                width: 24,
+                                height: 24,
+                                borderRadius: "50%",
+                                padding: 0,
+                              }}
+                            >
+                              <X fontSize="small" />
+                            </Button>
+                          </div>
+                        ) : (
+                          <div
+                            style={{
+                              display: "flex",
+                              flexDirection: "column",
+                              alignItems: "center",
+                              gap: 1,
+                            }}
+                          >
+                            <CloudUpload
+                              style={{ fontSize: 30, color: "#aaa" }}
+                            />
+                            <div
+                              style={{
+                                fontSize: 16,
+                                color: "#aaa",
+                                textAlign: "center",
+                              }}
+                            >
+                              Upload Employee Image
+                            </div>
+                          </div>
+                        )}
                       </div>
-                    </div>
-                  )}
-                </div>
-{/* 
+                      {/* 
                 {error && (
                   <Typography color="error" variant="caption" mt={1}>
                     {error.message}
                   </Typography>
                 )} */}
-              </>
+                    </>
                   </FormControl>
                   <FormMessage />
                 </FormItem>

@@ -4,7 +4,7 @@ import React, { useMemo, useState } from "react";
 import logo from "../../../public/just-logo.png";
 import Link from "next/link";
 import SearchBox from "@/components/shared/search-box";
-import { useShowEmployee } from "@/hooks/reactQuery/employeeQuery";
+import { useShowEmployeeBySearch } from "@/hooks/reactQuery/employeeQuery";
 import { Employee } from "@/zod/employee-schema";
 import { Avatar, AvatarFallback, AvatarImage } from "../atoms/avatar";
 import { Mail, Phone } from "lucide-react";
@@ -12,24 +12,28 @@ import { Card, CardContent } from "../atoms/card";
 
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const { employeeShowQuery } = useShowEmployee();
+  const { employeeShowBySearchQuery } = useShowEmployeeBySearch();
 
   const filteredEmployee = useMemo(() => {
-    return employeeShowQuery.data?.data?.filter((employee: Employee) => {
-      const matchesName = (employee.name ?? "")
-        .toLowerCase()
-        .includes(searchTerm.toLowerCase());
-      return matchesName;
-    });
-  }, [employeeShowQuery.data, searchTerm]);
+    return employeeShowBySearchQuery.data?.data?.filter(
+      (employee: Employee) => {
+        const matchesName = (employee.name ?? "")
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase());
+        return matchesName;
+      }
+    );
+  }, [employeeShowBySearchQuery.data, searchTerm]);
 
   return (
     <div className="min-h-screen flex flex-col items-center relative">
       {/* Top SearchBox container */}
 
-       <div
+      <div
         className={`transition-all duration-300 ${
-          searchTerm ? "mt-2 py-4 order-first" : "mt-0 absolute bottom-24 p-0 w-full flex justify-center"
+          searchTerm
+            ? "mt-2 py-4 order-first"
+            : "mt-0 absolute bottom-24 p-0 w-full flex justify-center"
         }`}
       >
         <SearchBox
@@ -42,7 +46,8 @@ const Home = () => {
       {searchTerm ? (
         // Results
         <div className="flex-1 w-full px-3">
-          {employeeShowQuery.isLoading || employeeShowQuery.isFetching ? (
+          {employeeShowBySearchQuery.isLoading ||
+          employeeShowBySearchQuery.isFetching ? (
             <p className="text-center">Loading...</p>
           ) : filteredEmployee && filteredEmployee.length > 0 ? (
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 px-3">
@@ -120,12 +125,12 @@ const Home = () => {
           <div className=" flex flex-col space-y-2 mt-4">
             <div className="flex flex-col items-center space-y-2 ">
               <Link
-              href="/departments"
-              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
-            >
-              Click Here to See Contact List
-            </Link>
-            <span className="px-2 text-blue-600 text-sm font-bold">OR</span>
+                href="/departments"
+                className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
+              >
+                Click Here to See Contact List
+              </Link>
+              <span className="px-2 text-blue-600 text-sm font-bold">OR</span>
             </div>
           </div>
         </div>

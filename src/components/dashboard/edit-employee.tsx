@@ -143,10 +143,7 @@ export default function EditEmployeeDialog({
         }
       },
     });
-    console.log(data);
   };
-
-  console.log(employeeCreateForm.formState.errors);
 
   return (
     <Dialog open={open} onOpenChange={onClose}>

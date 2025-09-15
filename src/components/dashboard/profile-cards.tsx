@@ -31,7 +31,6 @@ export function ProfileCard() {
     (emp: Employee) => emp.id === selectedEmployee.employee_id
   );
 
-  console.log(employee);
   const handleOpenEmployeeEditModal = (employee: Employee) => {
     setSelectedEmployee({
       employee_id: employee.id,

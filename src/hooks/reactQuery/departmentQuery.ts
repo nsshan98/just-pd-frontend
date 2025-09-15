@@ -10,7 +10,7 @@ const useShowDepartment = () => {
       return data;
     },
     retry: false,
-    staleTime: 0,
+    staleTime: 1000 * 60 * 10,
   });
   return { departmentShowQuery };
 };
@@ -26,7 +26,7 @@ const useShowDepartmentWiseEmployee = (department: string) => {
       return data;
     },
     retry: false,
-    staleTime: 0,
+    staleTime: 1000 * 60 * 10,
   });
   return { departmentWiseEmployeeQuery };
 };

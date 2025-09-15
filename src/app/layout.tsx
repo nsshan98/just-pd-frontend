@@ -17,8 +17,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Project Unknown",
-  description: "Nothing to describe",
+  title: "JUST Phone Directory",
+  description: "JUST Family Contact Number & Details",
 };
 
 export default async function RootLayout({
@@ -26,29 +26,29 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await auth()
+  const session = await auth();
   return (
     <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-      <div className="min-h-screen w-full bg-[#fff9f5] relative">
-  {/* Warm Light Apricot & Coral */}
-  <div
-    className="absolute inset-0 -z-10"
-    style={{
-      backgroundImage: `
+        <div className="min-h-screen w-full bg-[#fff9f5] relative">
+          {/* Warm Light Apricot & Coral */}
+          <div
+            className="absolute inset-0 -z-10"
+            style={{
+              backgroundImage: `
         radial-gradient(circle at 20% 80%, rgba(255, 220, 190, 0.3) 0%, transparent 50%),
         radial-gradient(circle at 80% 20%, rgba(255, 245, 238, 0.35) 0%, transparent 50%),
         radial-gradient(circle at 40% 40%, rgba(255, 210, 180, 0.15) 0%, transparent 50%)`,
-    }}
-  />
+            }}
+          />
           {/* Your Content/Components */}
           <SessionProvider session={session}>
-           <Providers>
-             {children}
-            <Toaster/>
-           </Providers>
+            <Providers>
+              {children}
+              <Toaster />
+            </Providers>
           </SessionProvider>
         </div>
       </body>

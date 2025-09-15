@@ -9,8 +9,8 @@ import { useParams, useRouter } from "next/navigation";
 import { useShowDepartmentWiseEmployee } from "@/hooks/reactQuery/departmentQuery";
 
 const DepartmentWiseEmployee = () => {
-  const { department } = useParams();
   const router = useRouter();
+  const { department } = useParams();
   const { departmentWiseEmployeeQuery } = useShowDepartmentWiseEmployee(
     department as string
   );
@@ -51,9 +51,9 @@ const DepartmentWiseEmployee = () => {
             cursor: "pointer",
           }}
         />
-        <p>
-          {department} : {departmentWiseEmployeeQuery.data?.count} Employees
-          Found
+        <p className="text-lg font-bold">
+          {department} Department: Employees Found{" "}
+          {departmentWiseEmployeeQuery.data?.count}
         </p>
       </div>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 px-3 py-3">
