@@ -1,38 +1,38 @@
-import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
 
 export const employeeDepartments = [
-  { "value": "CSE", "name": "Computer Science and Engineering" },
-  { "value": "IPE", "name": "Industrial and Production Engineering" },
-  { "value": "PME", "name": "Petroleum and Mining Engineering" },
-  { "value": "ChE", "name": "Chemical Engineering" },
-  { "value": "EEE", "name": "Electrical and Electronic Engineering" },
-  { "value": "BME", "name": "Biomedical Engineering" },
-  { "value": "TE", "name": "Textile Engineering" },
-  { "value": "MB", "name": "Microbiology" },
-  { "value": "FMB", "name": "Fisheries and Marine Bioscience" },
-  { "value": "GEBT", "name": "Genetic Engineering and Biotechnology" },
-  { "value": "PHAR", "name": "Pharmacy" },
-  { "value": "BMB", "name": "Biochemistry and Molecular Biology" },
-  { "value": "EST", "name": "Environmental Science and Technology" },
-  { "value": "NFT", "name": "Nutrition and Food Technology" },
-  { "value": "FE", "name": "Food Engineering" },
-  { "value": "CDM", "name": "Climate and Disaster Management" },
-  { "value": "PESS", "name": "Physical Education and Sports Science" },
-  { "value": "PTR", "name": "Physiotherapy and Rehabilitation" },
-  { "value": "NHS", "name": "Nursing and Health Science" },
-  { "value": "ENG", "name": "English" },
-  { "value": "PHY", "name": "Physics" },
-  { "value": "CHEM", "name": "Chemistry" },
-  { "value": "MATH", "name": "Mathematics" },
-  { "value": "ASDS", "name": "Applied Statistics and Data Science" },
-  { "value": "AIS", "name": "Accounting and Information Systems" },
-  { "value": "MGT", "name": "Management" },
-  { "value": "MKT", "name": "Marketing" },
-  { "value": "FB", "name": "Finance and Banking" },
-  { "value": "DVM", "name": "Veterinary Medicine" }
-]
+  { id: 1, value: "Computer Science and Engineering (CSE)" },
+  { id: 2, value: "Industrial and Production Engineering (IPE)" },
+  { id: 3, value: "Petroleum and Mining Engineering (PME)" },
+  { id: 4, value: "Chemical Engineering (ChE)" },
+  { id: 5, value: "Electrical and Electronic Engineering (EEE)" },
+  { id: 6, value: "Biomedical Engineering (BME)" },
+  { id: 7, value: "Textile Engineering (TE)" },
+  { id: 8, value: "Microbiology (MB)" },
+  { id: 9, value: "Fisheries and Marine Bioscience (FMB)" },
+  { id: 10, value: "Genetic Engineering and Biotechnology (GEBT)" },
+  { id: 11, value: "Pharmacy (PHAR)" },
+  { id: 12, value: "Biochemistry and Molecular Biology (BMB)" },
+  { id: 13, value: "Environmental Science and Technology (EST)" },
+  { id: 14, value: "Nutrition and Food Technology (NFT)" },
+  { id: 15, value: "Food Engineering (FE)" },
+  { id: 16, value: "Climate and Disaster Management (CDM)" },
+  { id: 17, value: "Physical Education and Sports Science (PESS)" },
+  { id: 18, value: "Physiotherapy and Rehabilitation (PTR)" },
+  { id: 19, value: "Nursing and Health Science (NHS)" },
+  { id: 20, value: "English (ENG)" },
+  { id: 21, value: "Physics (PHY)" },
+  { id: 22, value: "Chemistry (CHEM)" },
+  { id: 23, value: "Mathematics (MATH)" },
+  { id: 24, value: "Applied Statistics and Data Science (ASDS)" },
+  { id: 25, value: "Accounting and Information Systems (AIS)" },
+  { id: 26, value: "Management (MGT)" },
+  { id: 27, value: "Marketing (MKT)" },
+  { id: 28, value: "Finance and Banking (FB)" },
+  { id: 29, value: "Veterinary Medicine (DVM)" },
+];

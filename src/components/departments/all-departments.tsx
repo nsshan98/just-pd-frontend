@@ -42,22 +42,26 @@ export function AllDepartments() {
       </div>
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 px-3 py-3">
         {departmentShowQuery.data?.data.map(
-          (department: string, index: number) => (
-            <Card key={index} className="w-full bg-white shadow-sm relative">
-              <Link href={`/departments/${department}`}>
-                <CardContent className="p-2 text-center">
-                  <div className="flex flex-col items-center space-y-4">
-                    <div className="space-y-1">
-                      <h2 className="text-xl font-semibold text-gray-900 flex items-center justify-center ">
-                        <Building className="w-6 h-6 inline-block mr-2" />
-                        {department}
-                      </h2>
+          (department: string, index: number) => {
+            const departmentName = department.match(/^(.*)\s\((.*)\)$/);
+            return (
+              <Card key={index} className="w-full bg-white shadow-sm relative">
+                <Link href={`/departments/${department}`}>
+                  <CardContent className="p-2 text-center">
+                    <div className="flex flex-col items-center space-y-4">
+                      <div className="space-y-1">
+                        <h2 className="text-xl font-semibold text-gray-900 flex items-center justify-center ">
+                          <Building className="w-6 h-6 inline-block mr-2" />
+                          {departmentName?.[2] || department}
+                        </h2>
+                        <p>{departmentName?.[1]}</p>
+                      </div>
                     </div>
-                  </div>
-                </CardContent>
-              </Link>
-            </Card>
-          )
+                  </CardContent>
+                </Link>
+              </Card>
+            );
+          }
         )}
       </div>
     </div>

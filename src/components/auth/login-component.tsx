@@ -18,6 +18,7 @@ import { useState } from "react";
 import { doUserSignIn } from "@/action/auth";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { Spinner } from "../atoms/spinner";
 
 const LoginComponent = () => {
   const router = useRouter();
@@ -44,16 +45,16 @@ const LoginComponent = () => {
       }
     } catch (error) {
       if (error) {
-        toast(
-          "Login Failed. Please check your credentials and try again."
-        );
+        toast("Login Failed. Please check your credentials and try again.");
       }
     }
   };
   return (
     <div className="max-w-md h-dvh mx-auto my-auto flex flex-col justify-center">
       <div>
-        <h1 className="text-3xl font-bold text-center mb-6">JUST Phone Directory Login</h1>
+        <h1 className="text-3xl font-bold text-center mb-6">
+          JUST Phone Directory Login
+        </h1>
       </div>
       <Form {...loginForm}>
         <form onSubmit={loginForm.handleSubmit(onSubmit)} className="space-y-8">
@@ -102,7 +103,16 @@ const LoginComponent = () => {
               </FormItem>
             )}
           />
-          <Button type="submit">Submit</Button>
+          <Button disabled={loginForm.formState.isSubmitting} type="submit">
+            {loginForm.formState.isSubmitting ? (
+              <div className="flex items-center space-x-2">
+                <p>Logging in...</p>
+                <Spinner />
+              </div>
+            ) : (
+              "Login"
+            )}
+          </Button>
         </form>
       </Form>
     </div>

@@ -421,8 +421,8 @@ export default function EditEmployeeDialog({
                         </FormControl>
                         <SelectContent>
                           {employeeDepartments.map((dept) => (
-                            <SelectItem key={dept.value} value={dept.value}>
-                              {dept.name}
+                            <SelectItem key={dept.id} value={dept.value}>
+                              {dept.value}
                             </SelectItem>
                           ))}
                         </SelectContent>

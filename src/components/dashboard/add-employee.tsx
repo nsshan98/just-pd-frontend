@@ -36,10 +36,12 @@ import { Checkbox } from "../atoms/checkbox";
 import Image from "next/image";
 import { useRef, useState } from "react";
 import { CloudUpload, X } from "lucide-react";
+import { Spinner } from "../atoms/spinner";
 
 export default function AddEmployeeDialog() {
   const [previewImage, setPreviewImage] = useState<string | null>();
   const fileRef = useRef<HTMLInputElement | null>(null);
+
 
   const { employeeCreateMutation } = useCreateEmployee();
   const employeeCreateForm = useForm<EmployeeSchemaType>({
@@ -89,6 +91,8 @@ export default function AddEmployeeDialog() {
       },
     });
   };
+  console.log(employeeCreateForm.formState.isSubmitting)
+
 
   return (
     <Dialog>
@@ -356,8 +360,8 @@ export default function AddEmployeeDialog() {
                         </FormControl>
                         <SelectContent>
                           {employeeDepartments.map((dept) => (
-                            <SelectItem key={dept.value} value={dept.value}>
-                              {dept.name}
+                            <SelectItem key={dept.id} value={dept.value}>
+                              {dept.value}
                             </SelectItem>
                           ))}
                         </SelectContent>
@@ -408,7 +412,19 @@ export default function AddEmployeeDialog() {
                   </FormItem>
                 )}
               />
-              <Button type="submit">Submit</Button>
+              <Button
+                disabled={employeeCreateForm.formState.isSubmitting}
+                type="submit"
+              >
+                {employeeCreateForm.formState.isSubmitting ? (
+                  <div className="flex items-center space-x-2">
+                    <p>Submitting...</p>
+                    <Spinner />
+                  </div>
+                ) : (
+                  "Sumbit"
+                )}
+              </Button>
             </DialogFooter>
           </form>
         </Form>
