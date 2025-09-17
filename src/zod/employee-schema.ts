@@ -24,10 +24,12 @@ export const employeeSchema = z.object({
     .string()
     .min(1, { message: "Employee Name is required" })
     .max(50, { message: "Product Name should not exceed 50 characters" }),
-  email: z.string().min(1, { message: "Email is required" }),
+  email: z.string().optional(),
   show_email: z.boolean().optional(),
-  phone: z.string().min(1, { message: "Phone number is required" }),
-  show_phone: z.boolean().optional(),
+  official_phone: z.string().optional(),
+  show_official_phone: z.boolean().optional(),
+  personal_phone: z.string().optional(),
+  show_personal_phone: z.boolean().optional(),
   designation: z.string().min(1, { message: "Designation is required" }),
   department: z.string().min(1, { message: "Department is required" }),
   sorting_order: z.number().optional(),
@@ -41,8 +43,10 @@ export type Employee = {
   name: string;
   email: string;
   show_email: boolean;
-  phone: string;
-  show_phone: boolean;
+  official_phone: string;
+  show_official_phone: boolean;
+  personal_phone: string;
+  show_personal_phone: boolean;
   designation: string;
   department: string;
   sorting_order: number;

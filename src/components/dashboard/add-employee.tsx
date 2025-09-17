@@ -42,7 +42,6 @@ export default function AddEmployeeDialog() {
   const [previewImage, setPreviewImage] = useState<string | null>();
   const fileRef = useRef<HTMLInputElement | null>(null);
 
-
   const { employeeCreateMutation } = useCreateEmployee();
   const employeeCreateForm = useForm<EmployeeSchemaType>({
     defaultValues: {
@@ -50,8 +49,10 @@ export default function AddEmployeeDialog() {
       name: "",
       email: "",
       show_email: true,
-      phone: "",
-      show_phone: true,
+      official_phone: "",
+      show_official_phone: true,
+      personal_phone: "",
+      show_personal_phone: true,
       designation: "",
       department: "",
       sorting_order: 0,
@@ -66,10 +67,18 @@ export default function AddEmployeeDialog() {
       formData.append("image", data.image);
     }
     formData.append("name", data.name);
-    formData.append("email", data.email);
+    formData.append("email", data.email ?? "");
     formData.append("show_email", (data.show_email ?? true).toString());
-    formData.append("phone", data.phone);
-    formData.append("show_phone", (data.show_phone ?? true).toString());
+    formData.append("official_phone", data.official_phone ?? "");
+    formData.append(
+      "show_official_phone",
+      (data.show_official_phone ?? true).toString()
+    );
+    formData.append("personal_phone", data.personal_phone ?? "");
+    formData.append(
+      "show_personal_phone",
+      (data.show_personal_phone ?? true).toString()
+    );
     formData.append("designation", data.designation);
     formData.append("department", data.department);
     formData.append("sorting_order", (data.sorting_order ?? 0).toString());
@@ -91,8 +100,7 @@ export default function AddEmployeeDialog() {
       },
     });
   };
-  console.log(employeeCreateForm.formState.isSubmitting)
-
+  console.log(employeeCreateForm.formState.isSubmitting);
 
   return (
     <Dialog>
@@ -289,10 +297,10 @@ export default function AddEmployeeDialog() {
               <div className="flex-grow">
                 <FormField
                   control={employeeCreateForm.control}
-                  name="phone"
+                  name="official_phone"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Phone</FormLabel>
+                      <FormLabel>Official Phone</FormLabel>
                       <FormControl>
                         <Input
                           className="bg-amber-50 border-amber-950"
@@ -308,7 +316,45 @@ export default function AddEmployeeDialog() {
               </div>
               <FormField
                 control={employeeCreateForm.control}
-                name="show_phone"
+                name="show_official_phone"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Show</FormLabel>
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value} // ✅ bind to form state
+                        onCheckedChange={field.onChange} // ✅ update form state
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="flex-grow">
+                <FormField
+                  control={employeeCreateForm.control}
+                  name="personal_phone"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Personal Phone</FormLabel>
+                      <FormControl>
+                        <Input
+                          className="bg-amber-50 border-amber-950"
+                          placeholder="+88 01234 567890"
+                          type="text"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+              <FormField
+                control={employeeCreateForm.control}
+                name="show_personal_phone"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Show</FormLabel>

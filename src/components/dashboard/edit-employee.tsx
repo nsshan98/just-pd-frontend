@@ -60,10 +60,12 @@ export default function EditEmployeeDialog({
     values: {
       image: employee.image?.image_url,
       name: employee.name,
-      email: employee.email,
+      email: employee.email ?? "",
       show_email: employee.show_email,
-      phone: employee.phone,
-      show_phone: employee.show_phone,
+      official_phone: employee.official_phone ?? "",
+      show_official_phone: employee.show_official_phone,
+      personal_phone: employee.personal_phone ?? "",
+      show_personal_phone: employee.show_personal_phone,
       designation: employee.designation,
       department: employee.department,
       sorting_order: employee.sorting_order ?? 0,
@@ -80,8 +82,10 @@ export default function EditEmployeeDialog({
     if (data.name !== employee.name) return true;
     if (data.email !== employee.email) return true;
     if (data.show_email !== employee.show_email) return true;
-    if (data.phone !== employee.phone) return true;
-    if (data.show_phone !== employee.show_phone) return true;
+    if (data.official_phone !== employee.official_phone) return true;
+    if (data.show_official_phone !== employee.show_official_phone) return true;
+    if (data.personal_phone !== employee.personal_phone) return true;
+    if (data.show_personal_phone !== employee.show_personal_phone) return true;
     if (data.designation !== employee.designation) return true;
     if (data.department !== employee.department) return true;
     if (data.sorting_order !== employee.sorting_order) return true;
@@ -100,16 +104,19 @@ export default function EditEmployeeDialog({
       formData.append("name", data.name);
     }
     if (data.email !== employee.email) {
-      formData.append("email", data.email);
+      formData.append("email", data.email ?? "");
     }
     if (data.show_email !== employee.show_email) {
       formData.append("show_email", (data.show_email ?? true).toString());
     }
-    if (data.phone !== employee.phone) {
-      formData.append("phone", data.phone);
+    if (data.official_phone !== employee.official_phone) {
+      formData.append("official_phone", data.official_phone ?? "");
     }
-    if (data.show_phone !== employee.show_phone) {
-      formData.append("show_phone", (data.show_phone ?? true).toString());
+    if (data.show_official_phone !== employee.show_official_phone) {
+      formData.append(
+        "show_official_phone",
+        (data.show_official_phone ?? true).toString()
+      );
     }
     if (data.designation !== employee.designation) {
       formData.append("designation", data.designation);
@@ -350,10 +357,10 @@ export default function EditEmployeeDialog({
               <div className="flex-grow">
                 <FormField
                   control={employeeCreateForm.control}
-                  name="phone"
+                  name="official_phone"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Phone</FormLabel>
+                      <FormLabel>Official Phone</FormLabel>
                       <FormControl>
                         <Input
                           className="bg-amber-50 border-amber-950"
@@ -369,7 +376,45 @@ export default function EditEmployeeDialog({
               </div>
               <FormField
                 control={employeeCreateForm.control}
-                name="show_phone"
+                name="show_official_phone"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Show</FormLabel>
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value} // ✅ bind to form state
+                        onCheckedChange={field.onChange} // ✅ update form state
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="flex-grow">
+                <FormField
+                  control={employeeCreateForm.control}
+                  name="personal_phone"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Personal Phone</FormLabel>
+                      <FormControl>
+                        <Input
+                          className="bg-amber-50 border-amber-950"
+                          placeholder="+88 01234 567890"
+                          type="text"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+              <FormField
+                control={employeeCreateForm.control}
+                name="show_personal_phone"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Show</FormLabel>
