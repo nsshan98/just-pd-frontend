@@ -9,6 +9,7 @@ import { Employee } from "@/zod/employee-schema";
 import { Avatar, AvatarFallback, AvatarImage } from "../atoms/avatar";
 import { Mail, Phone } from "lucide-react";
 import { Card, CardContent } from "../atoms/card";
+import BottomNav from "../shared/bottom-navigation";
 
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -56,7 +57,7 @@ const Home = () => {
                   key={index}
                   className="w-full bg-white shadow-sm relative"
                 >
-                  <CardContent className="p-2 text-center">
+                  <CardContent className="p-1 text-center">
                     <div className="flex flex-col items-center space-y-4">
                       <Avatar className="w-40 h-40">
                         <AvatarImage
@@ -69,13 +70,13 @@ const Home = () => {
                         </AvatarFallback>
                       </Avatar>
 
+                      {/* Name and Title */}
                       <div className="space-y-1">
                         <h2 className="text-xl font-semibold text-gray-900">
                           {employee.name}
                         </h2>
-                        <p className="text-gray-600">
-                          {employee.designation} ({employee.department})
-                        </p>
+                        <p className="text-gray-600">{employee.designation}</p>
+                        <p className="text-gray-600">{employee.department}</p>
                       </div>
 
                       <div className="space-y-3">
@@ -86,7 +87,20 @@ const Home = () => {
                           >
                             <Phone className="w-4 h-4" />
                             <span className="text-sm">
-                              {employee.official_phone ?? "Not Provided"}
+                              {employee.official_phone ?? "Not Provided"}{" "}
+                              (Official)
+                            </span>
+                          </Link>
+                        </div>
+                        <div className="flex items-center justify-center space-x-3 text-gray-600">
+                          <Link
+                            href={`tel:${employee.personal_phone}`}
+                            className="flex items-center space-x-2"
+                          >
+                            <Phone className="w-4 h-4" />
+                            <span className="text-sm">
+                              {employee.personal_phone ?? "Not Provided"}{" "}
+                              (Personal)
                             </span>
                           </Link>
                         </div>
@@ -130,6 +144,7 @@ const Home = () => {
               <span className="px-2 text-blue-600 text-sm font-bold">OR</span>
             </div>
           </div>
+          <BottomNav/>
         </div>
       )}
     </div>

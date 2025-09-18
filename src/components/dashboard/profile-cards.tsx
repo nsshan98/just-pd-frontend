@@ -100,7 +100,7 @@ export function ProfileCard() {
                   {employee.name}
                 </h2>
                 <p className="text-gray-600">{employee.designation}</p>
-                <p className="text-gray-600">({employee.department})</p>
+                <p className="text-gray-600">{employee.department}</p>
               </div>
 
               {/* Contact Information */}

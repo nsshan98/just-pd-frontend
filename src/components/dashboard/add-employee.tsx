@@ -135,7 +135,7 @@ export default function AddEmployeeDialog() {
                 <FormItem>
                   <FormLabel>Image</FormLabel>
                   <FormControl>
-                    <>
+                    <div>
                       <input
                         type="file"
                         hidden
@@ -230,7 +230,7 @@ export default function AddEmployeeDialog() {
                     {error.message}
                   </Typography>
                 )} */}
-                    </>
+                    </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
