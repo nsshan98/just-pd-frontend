@@ -99,9 +99,8 @@ export function ProfileCard() {
                 <h2 className="text-xl font-semibold text-gray-900">
                   {employee.name}
                 </h2>
-                <p className="text-gray-600">
-                  {employee.designation} ({employee.department})
-                </p>
+                <p className="text-gray-600">{employee.designation}</p>
+                <p className="text-gray-600">({employee.department})</p>
               </div>
 
               {/* Contact Information */}
@@ -113,7 +112,18 @@ export function ProfileCard() {
                   >
                     <Phone className="w-4 h-4" />
                     <span className="text-sm">
-                      {employee.official_phone ?? "Not Provided"}
+                      {employee.official_phone ?? "Not Provided"} (Official)
+                    </span>
+                  </Link>
+                </div>
+                <div className="flex items-center justify-center space-x-3 text-gray-600">
+                  <Link
+                    href={`tel:${employee.personal_phone}`}
+                    className="flex items-center space-x-2"
+                  >
+                    <Phone className="w-4 h-4" />
+                    <span className="text-sm">
+                      {employee.personal_phone ?? "Not Provided"} (Personal)
                     </span>
                   </Link>
                 </div>

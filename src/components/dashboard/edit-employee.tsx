@@ -118,6 +118,15 @@ export default function EditEmployeeDialog({
         (data.show_official_phone ?? true).toString()
       );
     }
+    if (data.personal_phone !== employee.personal_phone) {
+      formData.append("personal_phone", data.personal_phone ?? "");
+    }
+    if (data.show_personal_phone !== employee.show_personal_phone) {
+      formData.append(
+        "show_personal_phone",
+        (data.show_personal_phone ?? true).toString()
+      );
+    }
     if (data.designation !== employee.designation) {
       formData.append("designation", data.designation);
     }

@@ -81,12 +81,12 @@ const Home = () => {
                       <div className="space-y-3">
                         <div className="flex items-center justify-center space-x-3 text-gray-600">
                           <Link
-                            href={`tel:${employee.phone}`}
+                            href={`tel:${employee.official_phone}`}
                             className="flex items-center space-x-2"
                           >
                             <Phone className="w-4 h-4" />
                             <span className="text-sm">
-                              {employee.phone ?? "Not Provided"}
+                              {employee.official_phone ?? "Not Provided"}
                             </span>
                           </Link>
                         </div>
@@ -115,11 +115,8 @@ const Home = () => {
         // Logo + text + OR (SearchBox stays same, just visually below)
         <div className="flex flex-col items-center justify-center flex-1 px-3">
           <Image src={logo} alt="logo" width={200} height={200} priority />
-          <p className="text-2xl font-bold text-center">
-            Jashore University of Science and Technology
-          </p>
           <p className="text-lg font-bold text-center">
-            JUST Family Contact Number & Details
+            Contact Number & Details
           </p>
 
           <div className=" flex flex-col space-y-2 mt-4">

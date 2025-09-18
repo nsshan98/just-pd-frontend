@@ -88,12 +88,12 @@ const DepartmentWiseEmployee = () => {
                   <div className="space-y-3 ">
                     <div className="flex items-center justify-center space-x-3 text-gray-600">
                       <Link
-                        href={`tel:${employee.phone}`}
+                        href={`tel:${employee.official_phone}`}
                         className="flex items-center space-x-2"
                       >
                         <Phone className="w-4 h-4" />
                         <span className="text-sm">
-                          {employee.phone ?? "Not Provided"}
+                          {employee.official_phone ?? "Not Provided"}
                         </span>
                       </Link>
                     </div>
