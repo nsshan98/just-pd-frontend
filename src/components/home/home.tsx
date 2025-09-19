@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import logo from "../../../public/just-logo.png";
 import Link from "next/link";
 import SearchBox from "@/components/shared/search-box";
@@ -14,6 +14,18 @@ import BottomNav from "../shared/bottom-navigation";
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const { employeeShowBySearchQuery } = useShowEmployeeBySearch();
+
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  // Keep focus after each render
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+      // Optional: move cursor to the end
+      inputRef.current.selectionStart = inputRef.current.value.length;
+      inputRef.current.selectionEnd = inputRef.current.value.length;
+    }
+  }, [searchTerm]); // rerun every time searchTerm changes
 
   const filteredEmployee = useMemo(() => {
     return employeeShowBySearchQuery.data?.data?.filter(
@@ -30,19 +42,20 @@ const Home = () => {
     <div className="min-h-screen flex flex-col items-center relative">
       {/* Top SearchBox container */}
 
-      <div
-        className={`transition-all duration-300 ${
-          searchTerm
-            ? "mt-2 py-4 order-first"
-            : "mt-0 absolute bottom-24 p-0 w-full flex justify-center"
-        }`}
-      >
-        <SearchBox
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder="Search..."
-        />
-      </div>
+      {searchTerm && (
+        <div
+          className={`transition-all duration-300 ${
+            searchTerm ? "mt-2 py-4 order-first" : "mt-2 py-4 order-last"
+          }`}
+        >
+          <SearchBox
+            ref={inputRef}
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            placeholder="Search..."
+          />
+        </div>
+      )}
 
       {searchTerm ? (
         // Results
@@ -142,9 +155,15 @@ const Home = () => {
                 Click Here to See Contact List
               </Link>
               <span className="px-2 text-blue-600 text-sm font-bold">OR</span>
+              <SearchBox
+                ref={inputRef}
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                placeholder="Search..."
+              />
             </div>
           </div>
-          <BottomNav/>
+          <BottomNav />
         </div>
       )}
     </div>

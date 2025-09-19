@@ -378,7 +378,7 @@ export default function AddEmployeeDialog() {
                   <FormControl>
                     <Input
                       className="bg-amber-50 border-amber-950"
-                      placeholder="+88 01234 567890"
+                      placeholder="Professor"
                       type="text"
                       {...field}
                     />

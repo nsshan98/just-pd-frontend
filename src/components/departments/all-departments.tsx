@@ -38,7 +38,7 @@ export function AllDepartments() {
             cursor: "pointer",
           }}
         />
-        <h2 className="text-2xl font-bold text-center">All Departments</h2>
+        <h2 className="text-2xl font-bold text-center">All Department / Office</h2>
       </div>
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 px-3 py-3">
         {departmentShowQuery.data?.data.map(
