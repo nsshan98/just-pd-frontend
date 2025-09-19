@@ -26,7 +26,7 @@ const useShowDepartmentWiseEmployee = (department: string) => {
       return data;
     },
     retry: false,
-    staleTime: 1000 * 60 * 10,
+    staleTime: 0,
   });
   return { departmentWiseEmployeeQuery };
 };

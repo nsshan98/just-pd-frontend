@@ -14,7 +14,7 @@ const DepartmentWiseEmployee = () => {
   const { departmentWiseEmployeeQuery } = useShowDepartmentWiseEmployee(
     department as string
   );
-  const departmentName = departmentWiseEmployeeQuery.data.message.replace("Employees from department:", "").trim()
+  const departmentName = departmentWiseEmployeeQuery.data?.message.replace("Employees from department:", "").trim()
 
   if (
     departmentWiseEmployeeQuery.isLoading ||
@@ -52,9 +52,8 @@ const DepartmentWiseEmployee = () => {
             cursor: "pointer",
           }}
         />
-        <p className="text-lg font-bold">
-          {departmentName} Department: Employees Found{" "}
-          {departmentWiseEmployeeQuery.data?.count}
+        <p className="text-lg text-center font-bold">
+          {departmentName} Department
         </p>
       </div>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 px-3 py-3">

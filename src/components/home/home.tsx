@@ -7,9 +7,10 @@ import SearchBox from "@/components/shared/search-box";
 import { useShowEmployeeBySearch } from "@/hooks/reactQuery/employeeQuery";
 import { Employee } from "@/zod/employee-schema";
 import { Avatar, AvatarFallback, AvatarImage } from "../atoms/avatar";
-import { Mail, Phone } from "lucide-react";
+import { Mail, Phone, Info } from "lucide-react";
 import { Card, CardContent } from "../atoms/card";
 import BottomNav from "../shared/bottom-navigation";
+import { Alert, AlertTitle } from "../atoms/alert";
 
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -135,19 +136,22 @@ const Home = () => {
               ))}
             </div>
           ) : (
-            <p className="text-center">No results found.</p>
+            <Alert variant={"info"}>
+              <Info />
+              <AlertTitle>No results found for {searchTerm}</AlertTitle>
+            </Alert>
           )}
         </div>
       ) : (
         // Logo + text + OR (SearchBox stays same, just visually below)
-        <div className="flex flex-col items-center justify-center flex-1 px-3">
+        <div className="flex flex-col items-center justify-center flex-1 px-3 pb-20">
           <Image src={logo} alt="logo" width={200} height={200} priority />
           <p className="text-lg font-bold text-center">
             Contact Number & Details
           </p>
 
-          <div className=" flex flex-col space-y-2 mt-4">
-            <div className="flex flex-col items-center space-y-2 ">
+          <div className=" flex flex-col space-y-2">
+            <div className="flex flex-col items-center space-y-2">
               <Link
                 href="/departments"
                 className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
