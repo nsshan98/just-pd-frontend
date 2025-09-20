@@ -86,10 +86,10 @@ export default function AddEmployeeDialog() {
     return formData;
   };
 
-  const onSubmit = (data: EmployeeSchemaType) => {
+  const onSubmit = async (data: EmployeeSchemaType) => {
     const formData = getFormData(data);
 
-    employeeCreateMutation.mutate(formData, {
+    await employeeCreateMutation.mutateAsync(formData, {
       onSuccess: () => {
         toast("Employee Created Successfully");
       },
@@ -100,7 +100,6 @@ export default function AddEmployeeDialog() {
       },
     });
   };
-  console.log(employeeCreateForm.formState.isSubmitting);
 
   return (
     <Dialog>

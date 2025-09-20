@@ -39,6 +39,7 @@ import { Checkbox } from "../atoms/checkbox";
 import Image from "next/image";
 import { useRef, useState } from "react";
 import { X } from "lucide-react";
+import { Spinner } from "../atoms/spinner";
 
 type EditEmployeeProps = {
   open: boolean;
@@ -56,7 +57,7 @@ export default function EditEmployeeDialog({
 
   const { employeeUpdateMutation } = useUpdateEmployee(employee.id);
 
-  const employeeCreateForm = useForm<EmployeeSchemaType>({
+  const employeeUpdateForm = useForm<EmployeeSchemaType>({
     values: {
       image: employee.image?.image_url,
       name: employee.name,
@@ -149,7 +150,7 @@ export default function EditEmployeeDialog({
       return;
     }
 
-    employeeUpdateMutation.mutate(formData, {
+    await employeeUpdateMutation.mutateAsync(formData, {
       onSuccess: () => {
         toast("Employee Updated Successfully");
       },
@@ -182,13 +183,13 @@ export default function EditEmployeeDialog({
           </DialogDescription>
         </DialogHeader>
 
-        <Form {...employeeCreateForm}>
+        <Form {...employeeUpdateForm}>
           <form
-            onSubmit={employeeCreateForm.handleSubmit(onSubmit)}
+            onSubmit={employeeUpdateForm.handleSubmit(onSubmit)}
             className="space-y-4"
           >
             <FormField
-              control={employeeCreateForm.control}
+              control={employeeUpdateForm.control}
               name="image"
               render={({ field: { onChange } }) => (
                 <FormItem>
@@ -307,7 +308,7 @@ export default function EditEmployeeDialog({
             />
 
             <FormField
-              control={employeeCreateForm.control}
+              control={employeeUpdateForm.control}
               name="name"
               render={({ field }) => (
                 <FormItem>
@@ -327,7 +328,7 @@ export default function EditEmployeeDialog({
             <div className="flex items-center gap-2">
               <div className="flex-grow">
                 <FormField
-                  control={employeeCreateForm.control}
+                  control={employeeUpdateForm.control}
                   name="email"
                   render={({ field }) => (
                     <FormItem>
@@ -346,7 +347,7 @@ export default function EditEmployeeDialog({
                 />
               </div>
               <FormField
-                control={employeeCreateForm.control}
+                control={employeeUpdateForm.control}
                 name="show_email"
                 render={({ field }) => (
                   <FormItem>
@@ -365,7 +366,7 @@ export default function EditEmployeeDialog({
             <div className="flex items-center gap-2">
               <div className="flex-grow">
                 <FormField
-                  control={employeeCreateForm.control}
+                  control={employeeUpdateForm.control}
                   name="official_phone"
                   render={({ field }) => (
                     <FormItem>
@@ -384,7 +385,7 @@ export default function EditEmployeeDialog({
                 />
               </div>
               <FormField
-                control={employeeCreateForm.control}
+                control={employeeUpdateForm.control}
                 name="show_official_phone"
                 render={({ field }) => (
                   <FormItem>
@@ -403,7 +404,7 @@ export default function EditEmployeeDialog({
             <div className="flex items-center gap-2">
               <div className="flex-grow">
                 <FormField
-                  control={employeeCreateForm.control}
+                  control={employeeUpdateForm.control}
                   name="personal_phone"
                   render={({ field }) => (
                     <FormItem>
@@ -422,7 +423,7 @@ export default function EditEmployeeDialog({
                 />
               </div>
               <FormField
-                control={employeeCreateForm.control}
+                control={employeeUpdateForm.control}
                 name="show_personal_phone"
                 render={({ field }) => (
                   <FormItem>
@@ -439,7 +440,7 @@ export default function EditEmployeeDialog({
               />
             </div>
             <FormField
-              control={employeeCreateForm.control}
+              control={employeeUpdateForm.control}
               name="designation"
               render={({ field }) => (
                 <FormItem>
@@ -459,7 +460,7 @@ export default function EditEmployeeDialog({
             <div className="flex items-center gap-2">
               <div className="flex-grow">
                 <FormField
-                  control={employeeCreateForm.control}
+                  control={employeeUpdateForm.control}
                   name="department"
                   render={({ field }) => (
                     <FormItem>
@@ -487,7 +488,7 @@ export default function EditEmployeeDialog({
                 />
               </div>
               <FormField
-                control={employeeCreateForm.control}
+                control={employeeUpdateForm.control}
                 name="sorting_order"
                 render={({ field }) => (
                   <FormItem>
@@ -512,7 +513,7 @@ export default function EditEmployeeDialog({
             </div>
             <DialogFooter className="flex justify-between">
               <FormField
-                control={employeeCreateForm.control}
+                control={employeeUpdateForm.control}
                 name="is_published"
                 render={({ field }) => (
                   <FormItem className="flex flex-row items-center">
@@ -527,7 +528,19 @@ export default function EditEmployeeDialog({
                   </FormItem>
                 )}
               />
-              <Button type="submit">Submit</Button>
+              <Button
+                disabled={employeeUpdateForm.formState.isSubmitting}
+                type="submit"
+              >
+                {employeeUpdateForm.formState.isSubmitting ? (
+                  <div className="flex items-center space-x-2">
+                    <p>Updating...</p>
+                    <Spinner />
+                  </div>
+                ) : (
+                  "Update"
+                )}
+              </Button>
             </DialogFooter>
           </form>
         </Form>

@@ -53,7 +53,7 @@ const DepartmentWiseEmployee = () => {
           }}
         />
         <p className="text-lg text-center font-bold">
-          {departmentName} Department
+          {departmentName}
         </p>
       </div>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 px-3 py-3">
