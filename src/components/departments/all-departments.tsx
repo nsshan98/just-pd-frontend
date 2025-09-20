@@ -4,7 +4,7 @@ import { Skeleton } from "@/components/atoms/skeleton";
 
 import Link from "next/link";
 import { useShowDepartment } from "@/hooks/reactQuery/departmentQuery";
-import { Building, SquareArrowLeft } from "lucide-react";
+import { SquareArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 export function AllDepartments() {
@@ -38,28 +38,25 @@ export function AllDepartments() {
             cursor: "pointer",
           }}
         />
-        <h2 className="text-2xl font-bold text-center">All Department / Office</h2>
+        <h2 className="text-2xl font-bold text-center">
+          All Department / Office
+        </h2>
       </div>
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 px-3 py-3">
+      <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 px-3 py-3">
         {departmentShowQuery.data?.data.map(
           (department: string, index: number) => {
             const departmentName = department.match(/^(.*)\s\((.*)\)$/);
             return (
-              <Card key={index} className="w-full bg-white shadow-sm relative">
+              <div key={index} className="w-full bg-white">
                 <Link href={`/departments/${department}`}>
-                  <CardContent className="p-2 text-center">
-                    <div className="flex flex-col items-center space-y-4">
-                      <div className="space-y-1">
-                        <h2 className="text-xl font-semibold text-gray-900 flex items-center justify-center ">
-                          <Building className="w-6 h-6 inline-block mr-2" />
-                          {departmentName?.[2] || department}
-                        </h2>
-                        <p>{departmentName?.[1]}</p>
-                      </div>
-                    </div>
-                  </CardContent>
+                  <div className="flex border-2 items-center">
+                    <h3 className="font-bold text-center border-r-2 px-1 py-2">
+                      {departmentName?.[2] || department}
+                    </h3>
+                    <h3 className="px-1">{departmentName?.[1]}</h3>
+                  </div>
                 </Link>
-              </Card>
+              </div>
             );
           }
         )}
