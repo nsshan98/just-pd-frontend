@@ -6,6 +6,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const employeeDepartments = [
+  // Engineering & Science Departments
   { id: 1, value: "Computer Science and Engineering (CSE)" },
   { id: 2, value: "Industrial and Production Engineering (IPE)" },
   { id: 3, value: "Petroleum and Mining Engineering (PME)" },
@@ -35,4 +36,45 @@ export const employeeDepartments = [
   { id: 27, value: "Marketing (MKT)" },
   { id: 28, value: "Finance and Banking (FB)" },
   { id: 29, value: "Veterinary Medicine (DVM)" },
+
+  // Faculties
+  { id: 30, value: "Faculty of Engineering & Technology" },
+  { id: 31, value: "Faculty of Applied Science & Technology" },
+  { id: 32, value: "Faculty of Biological Science & Technology" },
+  { id: 33, value: "Faculty of Health Science" },
+  { id: 34, value: "Faculty of Science" },
+  { id: 35, value: "Faculty of Veterinary Medicine" },
+  { id: 36, value: "Faculty of Arts and Social Science" },
+  { id: 37, value: "Faculty of Business Studies" },
+
+  // Offices, Halls, and Institutes
+  { id: 38, value: "Office of the Vice Chancellor" },
+  { id: 39, value: "Office of the Treasurer" },
+  { id: 40, value: "Office of the Registrar" },
+  { id: 41, value: "Office of the ICT Cell" },
+  { id: 42, value: "Office of the Librarian" },
+  { id: 43, value: "Shaheed Mashiur Rahman Hall" },
+  { id: 44, value: "Taposhi Rabeya Hall" },
+  { id: 45, value: "Munshi Mohammad Meherullah Hall" },
+  { id: 46, value: "Beerprotik Taramon Bibi Hall" },
+  { id: 47, value: "Office of the Proctor" },
+  { id: 48, value: "Office of the Student Counseling and Guidance" },
+  { id: 49, value: "Office of the Director of Accounts" },
+  { id: 50, value: "Office of the Director of Planning, Development & Works" },
+  { id: 51, value: "Office of the Controller of Examinations" },
+  { id: 52, value: "Office of the Chief Engineer" },
+  { id: 53, value: "Office of the Chief Medical Officer" },
+  { id: 54, value: "Institute for Higher Education and Research (IHER)" },
+  { id: 55, value: "Office of the Research Cell" },
+  { id: 56, value: "Institutional Quality Assurance Cell (IQAC)" },
+  { id: 57, value: "CSIRL" },
+  { id: 58, value: "Genome Centre" },
+  { id: 59, value: "International Service Center (ISC)" },
+  { id: 60, value: "Office of the Physical Education" },
+  { id: 61, value: "Office of the Transport Administrator" },
+  { id: 62, value: "Audit Cell" },
+  { id: 63, value: "Public relation branch (Registrar Office)" },
+  { id: 64, value: "Teachers and Students Centre (TSC)" },
+  { id: 65, value: "Cyber Centre" },
+  { id: 66, value: "Modern Fish Hatchery and Wet Lab" },
 ];

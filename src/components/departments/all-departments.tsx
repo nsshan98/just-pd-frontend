@@ -49,11 +49,16 @@ export function AllDepartments() {
             return (
               <div key={index} className="w-full bg-white">
                 <Link href={`/departments/${department}`}>
-                  <div className="flex border-2 items-center">
-                    <h3 className="font-bold text-center border-r-2 px-1 py-2">
+                  <div className="flex border border-gray-300 rounded-xl overflow-hidden">
+                    {/* Left part (always fixed width) */}
+                    <div className="w-14  bg-[#16DFE4] font-semibold text-gray-700 flex items-center justify-center border-r border-gray-300">
                       {departmentName?.[2] || department}
-                    </h3>
-                    <h3 className="px-1">{departmentName?.[1]}</h3>
+                    </div>
+
+                    {/* Right part (flex-grow) */}
+                    <div className="flex-grow px-2 py-4 bg-[#D6EB4E] text-gray-600">
+                      {departmentName?.[1]}
+                    </div>
                   </div>
                 </Link>
               </div>
