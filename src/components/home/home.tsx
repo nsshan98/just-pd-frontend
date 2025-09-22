@@ -152,12 +152,20 @@ const Home = () => {
 
           <div className=" flex flex-col space-y-2">
             <div className="flex flex-col items-center space-y-2">
-              <Link
-                href="/departments"
-                className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
-              >
-                Click Here to See Contact List
-              </Link>
+              <div className="flex flex-row items-center gap-2">
+                <Link
+                  href="/departments"
+                  className="mt-4 px-4 py-2 bg-[#16DFE4] text-gray-950 font-semibold rounded"
+                >
+                  Department
+                </Link>
+                <Link
+                  href="/offices"
+                  className="mt-4 px-4 py-2 bg-[#D6EB4E] text-gray-950 font-semibold rounded"
+                >
+                  Office
+                </Link>
+              </div>
               <span className="px-2 text-blue-600 text-sm font-bold">OR</span>
               <SearchBox
                 ref={inputRef}

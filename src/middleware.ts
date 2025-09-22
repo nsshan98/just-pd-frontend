@@ -5,10 +5,13 @@ export default auth((req) => {
   const path = req.nextUrl.pathname;
 
   // Public Routes
-  const publicRoutes = ["/", "/auth/login", "/departments"];
+  const publicRoutes = ["/", "/auth/login", "/departments", "/offices"];
 
   const isAuthenticated = !!req.auth;
-  const isPublicRoute = publicRoutes.includes(path) || path.startsWith("/departments/");
+  const isPublicRoute =
+    publicRoutes.includes(path) ||
+    path.startsWith("/departments/") ||
+    path.startsWith("/offices/");
 
   // Redirect unauthenticated users ONLY if not on a public route
   if (!isAuthenticated && !isPublicRoute) {

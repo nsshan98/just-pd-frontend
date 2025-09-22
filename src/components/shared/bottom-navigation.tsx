@@ -3,12 +3,13 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Building } from "lucide-react";
+import { Home, Building, Building2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navItems = [
   { href: "/", label: "Home", icon: Home },
-  { href: "/departments", label: "Department/Office", icon: Building },
+  { href: "/departments", label: "Department", icon: Building },
+  { href: "/offices", label: "Office", icon: Building2 },
 ];
 
 export default function BottomNav() {
@@ -28,7 +29,7 @@ export default function BottomNav() {
                 className={cn(
                   "flex flex-col items-center justify-center py-2 text-sm transition-colors",
                   isActive
-                    ? "text-blue-600"
+                    ? "text-[#149777]"
                     : "text-gray-500 hover:text-gray-800"
                 )}
               >
