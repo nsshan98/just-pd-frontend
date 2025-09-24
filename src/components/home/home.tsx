@@ -145,36 +145,40 @@ const Home = () => {
       ) : (
         // Logo + text + OR (SearchBox stays same, just visually below)
         <div className="flex flex-col items-center justify-center flex-1 px-3 pb-20">
-          <Image src={logo} alt="logo" width={200} height={200} priority />
-          <p className="text-lg font-bold text-center">
+          <Image src={logo} alt="logo" width={300} height={300} priority />
+          <p className="text-2xl font-bold text-center">
             Contact Number & Details
           </p>
 
-          <div className=" flex flex-col space-y-2">
-            <div className="flex flex-col items-center space-y-2">
-              <div className="flex flex-row items-center gap-2">
+          <div className="flex flex-col mt-6 space-y-2">
+            <div className="flex flex-col items-center space-y-6">
+              <div className="flex flex-row items-center gap-2 w-full max-w-xs">
                 <Link
                   href="/departments"
-                  className="mt-4 px-4 py-2 bg-[#16DFE4] text-gray-950 font-semibold rounded"
+                  className="px-4 py-2 bg-[#16DFE4] text-lg text-gray-950 font-semibold rounded flex-1 text-center"
                 >
                   Department
                 </Link>
+
+                {/* Vertical separator */}
+                <div className="w-px h-9 bg-blue-800" />
+
                 <Link
                   href="/offices"
-                  className="mt-4 px-4 py-2 bg-[#D6EB4E] text-gray-950 font-semibold rounded"
+                  className="px-4 py-2 bg-[#D6EB4E] text-lg text-gray-950 font-semibold rounded flex-1 text-center"
                 >
                   Office
                 </Link>
               </div>
-              <span className="px-2 text-blue-600 text-sm font-bold">OR</span>
+
               <SearchBox
-                ref={inputRef}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="Search..."
               />
             </div>
           </div>
+
           <BottomNav />
         </div>
       )}

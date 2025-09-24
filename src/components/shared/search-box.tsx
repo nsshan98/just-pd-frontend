@@ -5,7 +5,7 @@ import { CiSearch } from "react-icons/ci";
 import { Input } from "@/components/atoms/input";
 
 interface SearchBoxProps {
-  ref: React.Ref<HTMLInputElement>;
+  ref?: React.Ref<HTMLInputElement>;
   value: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder: string;
