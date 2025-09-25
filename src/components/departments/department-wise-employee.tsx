@@ -2,19 +2,20 @@
 import { Card, CardContent } from "@/components/atoms/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/atoms/avatar";
 import { Skeleton } from "@/components/atoms/skeleton";
-import { Phone, Mail, SquareArrowLeft } from "lucide-react";
+import { Phone, Mail } from "lucide-react";
 import Link from "next/link";
 import { Employee } from "@/zod/employee-schema";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useShowDepartmentWiseEmployee } from "@/hooks/reactQuery/departmentQuery";
 
 const DepartmentWiseEmployee = () => {
-  const router = useRouter();
   const { department } = useParams();
   const { departmentWiseEmployeeQuery } = useShowDepartmentWiseEmployee(
     department as string
   );
-  const departmentName = departmentWiseEmployeeQuery.data?.message.replace("Employees from department:", "").trim()
+  const departmentName = departmentWiseEmployeeQuery.data?.message
+    .replace("Employees from department:", "")
+    .trim();
 
   if (
     departmentWiseEmployeeQuery.isLoading ||
@@ -46,15 +47,7 @@ const DepartmentWiseEmployee = () => {
   return (
     <div>
       <div className="flex items-center mx-auto justify-center gap-2 px-3 pt-3">
-        <SquareArrowLeft
-          onClick={() => router.push("/departments")}
-          style={{
-            cursor: "pointer",
-          }}
-        />
-        <p className="text-lg text-center font-bold">
-          {departmentName}
-        </p>
+        <p className="text-lg text-center font-bold">{departmentName}</p>
       </div>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 px-3 py-3">
         {departmentWiseEmployeeQuery.data?.data.map(

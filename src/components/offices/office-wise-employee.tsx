@@ -2,14 +2,13 @@
 import { Card, CardContent } from "@/components/atoms/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/atoms/avatar";
 import { Skeleton } from "@/components/atoms/skeleton";
-import { Phone, Mail, SquareArrowLeft } from "lucide-react";
+import { Phone, Mail } from "lucide-react";
 import Link from "next/link";
 import { Employee } from "@/zod/employee-schema";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useShowOfficeWiseEmployee } from "@/hooks/reactQuery/officeQuery";
 
 const OfficeWiseEmployee = () => {
-  const router = useRouter();
   const { office } = useParams();
   const { officeWiseEmployeeQuery } = useShowOfficeWiseEmployee(
     office as string
@@ -43,12 +42,6 @@ const OfficeWiseEmployee = () => {
   return (
     <div>
       <div className="flex items-center mx-auto justify-center gap-2 px-3 pt-3">
-        <SquareArrowLeft
-          onClick={() => router.push("/offices")}
-          style={{
-            cursor: "pointer",
-          }}
-        />
         <p className="text-lg text-center font-bold">{officeName}</p>
       </div>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 px-3 py-3">
