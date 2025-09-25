@@ -150,32 +150,34 @@ const Home = () => {
             Contact Number & Details
           </p>
 
-          <div className="flex flex-col mt-6 space-y-2">
+          <div className="flex flex-col mt-10 space-y-2">
             <div className="flex flex-col items-center space-y-6">
-              <div className="flex flex-row items-center gap-2 w-full max-w-xs">
+              <div className="flex flex-row items-center gap-4">
                 <Link
                   href="/departments"
-                  className="px-4 py-2 bg-[#16DFE4] text-lg text-gray-950 font-semibold rounded flex-1 text-center"
+                  className="px-4 py-2 w-[150px] bg-[#16DFE4] text-lg text-gray-950 font-semibold rounded-md flex-1 text-center"
                 >
                   Department
                 </Link>
 
                 {/* Vertical separator */}
-                <div className="w-px h-9 bg-blue-800" />
+                <div className="w-1 h-9 bg-red-500" />
 
                 <Link
                   href="/offices"
-                  className="px-4 py-2 bg-[#D6EB4E] text-lg text-gray-950 font-semibold rounded flex-1 text-center"
+                  className="px-4 py-2 w-[150px] bg-[#D6EB4E] text-lg text-gray-950 font-semibold rounded-md flex-1 text-center"
                 >
                   Office
                 </Link>
               </div>
 
-              <SearchBox
+              <div className="w-full mt-2">
+                <SearchBox
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="Search..."
               />
+              </div>
             </div>
           </div>
 

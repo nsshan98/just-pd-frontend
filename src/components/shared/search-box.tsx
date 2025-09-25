@@ -18,7 +18,7 @@ export default function SearchBox({
   placeholder,
 }: SearchBoxProps) {
   return (
-    <div className="flex items-center border border-gray-300 rounded-lg px-3 w-full max-w-64">
+    <div className="flex items-center border border-gray-300 rounded-lg px-3 w-full">
       <CiSearch size={20} className="text-gray-500 mr-2" />
       <Input
         type="text"
