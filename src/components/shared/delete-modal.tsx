@@ -11,15 +11,21 @@ import {
 } from "@/components/atoms/dialog";
 import { Button } from "@/components/atoms/button";
 import { Trash2 } from "lucide-react";
+import { Spinner } from "../atoms/spinner";
 
 type DeleteModalProps = {
   open: boolean;
   onClose: () => void;
   onConfirm: () => void;
-  isLoading?: boolean;
+  isPending?: boolean;
 };
 
-const DeleteModal = ({ open, onClose, onConfirm, isLoading }: DeleteModalProps) => {
+const DeleteModal = ({
+  open,
+  onClose,
+  onConfirm,
+  isPending,
+}: DeleteModalProps) => {
   return (
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-sm rounded-2xl">
@@ -40,16 +46,23 @@ const DeleteModal = ({ open, onClose, onConfirm, isLoading }: DeleteModalProps) 
             variant="outline"
             className="font-inter"
             onClick={onClose}
-            disabled={isLoading}
+            disabled={isPending}
           >
             Cancel
           </Button>
           <Button
             className="bg-red-600 hover:bg-red-700 font-bold font-inter"
             onClick={onConfirm}
-            disabled={isLoading}
+            disabled={isPending}
           >
-            {isLoading ? "Deleting..." : "Confirm"}
+            {isPending ? (
+              <div className="flex items-center space-x-2">
+                <p>Deleting...</p>
+                <Spinner />
+              </div>
+            ) : (
+              "Confirm"
+            )}
           </Button>
         </DialogFooter>
       </DialogContent>

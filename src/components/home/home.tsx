@@ -171,7 +171,7 @@ const Home = () => {
                 </Link>
               </div>
 
-              <div className="w-full mt-2">
+              <div className="w-full mt-4">
                 <SearchBox
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}

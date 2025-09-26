@@ -7,6 +7,7 @@ type DeleteEmployeeProps = {
   open: boolean;
   onClose: () => void;
   employeeId: string;
+  isPending?: boolean;
 };
 
 const DeleteEmployeeDialog = ({
@@ -16,8 +17,8 @@ const DeleteEmployeeDialog = ({
 }: DeleteEmployeeProps) => {
   const { employeeDeleteMutation } = useDeleteEmployee();
 
-  const handleDeleteEmployee = () => {
-    employeeDeleteMutation.mutate(employeeId, {
+  const handleDeleteEmployee = async () => {
+    await employeeDeleteMutation.mutateAsync(employeeId, {
       onSuccess: () => {
         toast("Employee Deleted Successfully");
         onClose();
@@ -32,6 +33,7 @@ const DeleteEmployeeDialog = ({
       open={open}
       onClose={onClose}
       onConfirm={handleDeleteEmployee}
+      isPending={employeeDeleteMutation.isPending}
     />
   );
 };

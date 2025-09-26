@@ -45,7 +45,7 @@ export function AllDepartments() {
                     </div>
 
                     {/* Right part (flex-grow) */}
-                    <div className="flex-grow px-2 py-4 bg-[#D6EB4E] text-gray-600">
+                    <div className="flex-grow px-2 py-4 bg-[#D6EB4E] font-semibold text-gray-800">
                       {departmentName?.[1]}
                     </div>
                   </div>
