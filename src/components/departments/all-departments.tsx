@@ -38,14 +38,14 @@ export function AllDepartments() {
             return (
               <div key={index} className="w-full bg-white">
                 <Link href={`/departments/${department}`}>
-                  <div className="flex border border-gray-300 rounded-xl overflow-hidden">
+                  <div className="flex border h-[60px] border-gray-300 rounded-xl overflow-hidden">
                     {/* Left part (always fixed width) */}
-                    <div className="w-14  bg-[#16DFE4] font-semibold text-gray-700 flex items-center justify-center border-r border-gray-300">
+                    <div className="w-14 px-6  bg-[#16DFE4] font-semibold text-gray-700 flex items-center justify-center border-r border-gray-300">
                       {departmentName?.[2] || department}
                     </div>
 
                     {/* Right part (flex-grow) */}
-                    <div className="flex-grow px-2 py-4 bg-[#D6EB4E] font-semibold text-gray-800">
+                    <div className="flex items-center flex-grow px-2 py-4 bg-[#D6EB4E] font-semibold text-gray-800">
                       {departmentName?.[1]}
                     </div>
                   </div>

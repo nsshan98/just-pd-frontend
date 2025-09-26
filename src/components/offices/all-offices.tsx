@@ -36,8 +36,8 @@ export function AllOffices() {
           return (
             <div key={index} className="w-full bg-white">
               <Link href={`/offices/${office}`}>
-                <div className="flex border border-gray-300 rounded-xl overflow-hidden">
-                  <div className="flex-grow px-2 py-4 bg-[#D6EB4E] font-semibold text-gray-800">
+                <div className="flex h-[60px] border border-gray-300 rounded-xl overflow-hidden">
+                  <div className="flex items-center flex-grow px-2 py-4 bg-[#D6EB4E] font-semibold text-gray-800">
                     {office}
                   </div>
                 </div>
