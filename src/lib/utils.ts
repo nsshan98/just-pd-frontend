@@ -77,7 +77,7 @@ export const employeeDepartments = [
   { id: 62, value: "Teachers and Students Centre (TSC)" },
   { id: 63, value: "Shaheed Mashiur Rahman Hall" },
   { id: 64, value: "Taposhi Rabeya Hall" },
-  { id: 65, value: "Munshi Mohammad Meherullah Hall" },
+  { id: 65, value: "Munshi Meherullah Hall" },
   { id: 66, value: "Beerprotik Taramon Bibi Hall" },
   { id: 67, value: "Modern Fish Hatchery and Wet Lab" },
 ];
